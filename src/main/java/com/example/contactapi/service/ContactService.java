@@ -5,6 +5,8 @@ import com.example.contactapi.repo.ContactRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -24,9 +26,9 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 @Transactional(rollbackOn = Exception.class)
 public class ContactService {
+    @Autowired
     private ContactRepo contactRepo;
 
     public Page<Contact> getAllContact(int page, int size) {
@@ -37,10 +39,12 @@ public class ContactService {
         return contactRepo.findById(id).orElseThrow(() -> new RuntimeException("Contact not found"));
     }
 
+    @SuppressWarnings("null")
     public Contact createContact(Contact contact) {
         return contactRepo.save(contact);
     }
 
+    @SuppressWarnings("null")
     public void deleteContact(Contact contact) {
         contactRepo.delete(contact);
     }
