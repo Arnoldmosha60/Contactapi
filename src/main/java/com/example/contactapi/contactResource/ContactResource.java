@@ -26,6 +26,7 @@ public class ContactResource {
     @Autowired
     private ContactService contactService;
 
+    @SuppressWarnings("null")
     @PostMapping
     public ResponseEntity<Contact> createContact(@RequestBody @Validated Contact contact) {
         return ResponseEntity.created(URI.create("/contacts/userID")).body(contactService.createContact(contact));
